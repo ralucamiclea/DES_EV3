@@ -1,9 +1,8 @@
+
 package package2;
 
 
-import lejos.hardware.Button;
 import lejos.hardware.ev3.LocalEV3;
-import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.sensor.NXTLightSensor;
@@ -11,9 +10,6 @@ import lejos.robotics.RegulatedMotor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
-import lejos.utility.Delay;
-
-
 
 /**
  * @author raluca.miclea
@@ -55,6 +51,16 @@ public class Main {
 	        Arbitrator arby = new Arbitrator(bArray,false);
 	        
 	        arby.start();
+	        	/*
+		 RegulatedMotor lm = new EV3LargeRegulatedMotor(MotorPort.A);
+		 RegulatedMotor rm = new EV3LargeRegulatedMotor(MotorPort.D);
+		 Behavior B1 = new DriveForward(rm,lm);
+		 Behavior B2 = new AvoidCollision("S3", "S1", rm, lm);
+		 
+		 Behavior [] bArray = {B1, B2};
+		 Arbitrator arby = new Arbitrator(bArray);
+	     arby.start();
+	     */
 	    }
 }
 
