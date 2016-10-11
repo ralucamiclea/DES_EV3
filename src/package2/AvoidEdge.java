@@ -5,11 +5,12 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
 public class AvoidEdge implements Behavior {
-	private RegulatedMotor rm;
+	private RegulatedMotor lm, rm;
 	private SampleProvider light;
 	private float[] lightSamples;
 	
-	public AvoidEdge(RegulatedMotor rm, SampleProvider light, float[] lightSamples) {
+	public AvoidEdge(RegulatedMotor lm, RegulatedMotor rm, SampleProvider light, float[] lightSamples) {
+		this.lm = lm;
 		this.rm = rm;
 		this.light = light;
 		this.lightSamples = lightSamples;
@@ -23,9 +24,11 @@ public class AvoidEdge implements Behavior {
 
 	@Override
 	public void action() {
+		lm.forward();
 		rm.backward();
 		Delay.msDelay(50);
-		rm.stop();
+		lm.backward();
+		Delay.msDelay(50);
 	}
 
 	@Override

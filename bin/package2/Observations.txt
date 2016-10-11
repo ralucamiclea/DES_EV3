@@ -1,0 +1,18 @@
+Observations:
+
+We implemented 3 behaviors: one for driving forward, 
+one for avoiding the black edge and one for detecting 
+objects and avoiding collision with them.
+
+For the driving forward behavior we basically make both
+motors drive forward.
+
+For avoiding the black edge we fetch light sensor samples
+and if they are smaller than 0.5 it means it detected the 
+black edge so it tries to turn around.
+
+For detecting objects and avoiding collision we use both
+touch sensor samples and ultrasonic sensor samples. If 
+one of the touch sensor samples (left or righ) are 
+bigger than 0 or if  the distance sample is smaller than 0.25
+we detect an object. The response is turning in order to avoid it.

@@ -28,7 +28,5 @@ public class DriveForward  implements Behavior {
      rm.forward();
      while( !suppressed )
         Thread.yield();
-     lm.stop(); // clean up
-     rm.stop();
    }
 }
