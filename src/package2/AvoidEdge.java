@@ -1,33 +1,29 @@
 package package2;
+import assignment2.Model;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
 public class AvoidEdge implements Behavior {
-	private RegulatedMotor lm, rm;
-	private SampleProvider light;
-	private float[] lightSamples;
+	Model m;
 	
-	public AvoidEdge(RegulatedMotor lm, RegulatedMotor rm, SampleProvider light, float[] lightSamples) {
-		this.lm = lm;
-		this.rm = rm;
-		this.light = light;
-		this.lightSamples = lightSamples;
+	public AvoidEdge(Model m) {
+		this.m=m;
 	}
 
 	@Override
 	public boolean takeControl() {
-		light.fetchSample(lightSamples,0);
-		return lightSamples[0]<0.5;
+		m.light.fetchSample(m.lightSamples,0);
+		return m.lightSamples[0]<0.5;
 	}
 
 	@Override
 	public void action() {
-		lm.forward();
-		rm.backward();
+		m.lm.forward();
+		m.rm.backward();
 		Delay.msDelay(50);
-		lm.backward();
+		m.lm.backward();
 		Delay.msDelay(50);
 	}
 
