@@ -1,4 +1,6 @@
 package package2;
+import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.sensor.NXTLightSensor;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
@@ -6,14 +8,15 @@ import lejos.utility.Delay;
 
 public class AvoidEdge implements Behavior {
 	private RegulatedMotor lm, rm;
-	private SampleProvider light;
-	private float[] lightSamples;
+	NXTLightSensor lightSensor;
+    SampleProvider light = lightSensor.getRedMode();
+    float[] lightSamples;
 	
-	public AvoidEdge(RegulatedMotor lm, RegulatedMotor rm, SampleProvider light, float[] lightSamples) {
+	public AvoidEdge(RegulatedMotor lm, RegulatedMotor rm) {
 		this.lm = lm;
 		this.rm = rm;
-		this.light = light;
-		this.lightSamples = lightSamples;
+		lightSensor = new NXTLightSensor(LocalEV3.get().getPort("S2"));
+		lightSamples = new float[light.sampleSize()];
 	}
 
 	@Override
