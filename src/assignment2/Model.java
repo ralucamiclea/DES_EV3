@@ -11,6 +11,7 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.hardware.sensor.NXTLightSensor;
@@ -22,11 +23,11 @@ import lejos.robotics.SampleProvider;
 public class Model {
 	public RegulatedMotor lm;
 	public RegulatedMotor rm;
-	public NXTLightSensor lightSensor;
-	public SampleProvider light;
-	public float[] lightSamples;
-	public EV3TouchSensor touchL, touchR;
-	public EV3UltrasonicSensor sonar;
+	protected static EV3ColorSensor colorSensor;
+	public SampleProvider color;
+	public float[] colorSamples;
+	protected static EV3TouchSensor touchL, touchR;
+	protected static EV3UltrasonicSensor sonar;
 	public SampleProvider touchLeft, touchRight;
 	public SampleProvider distance;
 	public float[] touchLeftSamples, touchRightSamples;
@@ -44,9 +45,11 @@ public class Model {
 	public Model(){
 		lm = new EV3LargeRegulatedMotor(MotorPort.A);
         rm = new EV3LargeRegulatedMotor(MotorPort.D);
-        lightSensor = new NXTLightSensor(SensorPort.S2);
-        light = lightSensor.getRedMode();
-        lightSamples = new float[light.sampleSize()];
+        lm.setSpeed(290);
+        rm.setSpeed(300);
+        colorSensor = new EV3ColorSensor(SensorPort.S2);
+        color = colorSensor.getColorIDMode();
+		colorSamples = new float[color.sampleSize()];
         sonar = new EV3UltrasonicSensor(SensorPort.S3);
 		touchL = new EV3TouchSensor(SensorPort.S1);
 		touchR = new EV3TouchSensor(SensorPort.S4);
@@ -60,12 +63,53 @@ public class Model {
 	 	brick = BrickFinder.getDefault();
 	 	name = brick.getName();
 	 	LCD.drawString(name, 0, 3);
-	 	if(name.equals("Rover1") || name.equals("Rover3")){
+	 	if(name.equals("Rover1")){
 	 		connection = connector.connect("Rover2", NXTConnection.RAW);
+	 	}else if(name.equals("Rover3")){
+	 		connection = connector.connect("Rover4", NXTConnection.RAW);
 	 	}else{ //name==rover2 or rover4
 	 		connection = connector.waitForConnection(60000,NXTConnection.RAW);
 	 	}
 	 	writer = new PrintWriter(connection.openOutputStream());
  		reader = connection.openDataInputStream();
+ 		LCD.clearDisplay();/*
+ 		if(name.equals("Rover1")){
+ 			writer.print('x');
+ 			writer.flush();
+ 		}else{
+ 			try{
+				LCD.clear();
+				LCD.drawString("decoding message", 5, 0);
+				boolean bll = ((b=reader.readByte())!='\n');
+				LCD.clear();
+				if(bll){
+					LCD.drawChar((char) b,5,0);
+				}
+				else
+					LCD.drawString("nah", 5, 0);
+			}catch (IOException ex){
+	 			LCD.drawString("error:", 0, 3);
+	 			LCD.drawString(ex.getMessage(),0,4);
+	 		}
+ 		}
+ 		if(!name.equals("Rover1")){
+ 			writer.print('y');
+ 			writer.flush();
+ 		}else{
+ 			try{
+				LCD.drawString("decoding message", 6, 0);
+				boolean bll = ((b=reader.readByte())!='\n');
+				LCD.clear();
+				if(bll){
+					LCD.drawChar((char) b,6,0);
+				}
+				else
+					LCD.drawString("nah", 6, 0);
+			}catch (IOException ex){
+	 			LCD.drawString("error:", 0, 3);
+	 			LCD.drawString(ex.getMessage(),0,4);
+	 		}
+ 		}
+ 		while(true){}*/
 	}
 }

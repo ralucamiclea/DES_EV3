@@ -12,35 +12,43 @@ import lejos.remote.nxt.BTConnector;
 import lejos.remote.nxt.NXTConnection;
 import lejos.robotics.subsumption.Behavior;
 
-public class GetMessage implements Behavior {
+public class GetMessage extends Thread {
 	Model m;
-	private boolean suppressed  = false;
+	Goals g;
 	
-	public GetMessage(Model m){
+	public GetMessage(Model m, Goals g){
 		this.m=m;
+		this.g=g;
 	}
 
-	@Override
-	public boolean takeControl() {
-		try{
-			return ((m.b=m.reader.readByte())!='\n');
-		}catch (IOException ex){
- 			LCD.drawString("error:", 0, 3);
- 			LCD.drawString(ex.getMessage(),0,4);
- 			return false;
- 		}
+	public void run(){
+		while(!(g.red&&g.blue&&g.yellow)){
+			try{
+				LCD.clear();
+				LCD.drawString("decoding message", 0, 6);
+				boolean bll = ((m.b=m.reader.readByte())!='\n');
+				LCD.clear();
+				if(bll){
+					LCD.drawString("yes",0,6);
+					action();
+				}
+				else
+					LCD.drawString("nah", 0,6);
+			}catch (IOException ex){
+	 			LCD.drawString("error:", 0, 3);
+	 			LCD.drawString(ex.getMessage(),0,4);
+	 		}
+		}
 	}
 
-	@Override
 	public void action() {
-		suppressed=false;
-		Sound.beep();
-		
+		Sound.beepSequenceUp();
+		if(m.b=='r')
+			g.red=true;
+		else if(m.b=='y')
+			g.yellow=true;
+		else
+			g.blue=true;
 	}
-
-	@Override
-	public void suppress() {
-		suppressed = true;
 		
-	}
 }

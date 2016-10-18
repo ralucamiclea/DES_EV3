@@ -1,0 +1,50 @@
+﻿Merge remote-tracking branch 'origin/master'
+
+# Conflicts:
+#	bin/package2/AvoidCollision.class
+#	bin/package2/AvoidEdge.class
+#	src/assignment2/Model.java
+#	src/package2/AvoidCollision.java
+#	src/package2/AvoidEdge.java
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 1 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   Main.jar
+#	new file:   Main2.jar
+#	modified:   bin/assignment2/.gitignore
+#	new file:   bin/assignment2/AvoidEdge2.class
+#	new file:   bin/assignment2/DetectColors.class
+#	new file:   bin/assignment2/DriveForward2.class
+#	deleted:    bin/assignment2/Main.class
+#	new file:   bin/assignment2/Model.class
+#	modified:   bin/package2/AvoidCollision.class
+#	modified:   bin/package2/AvoidEdge.class
+#	new file:   src/assignment2/AvoidCollision2.java
+#	new file:   src/assignment2/AvoidEdge2.java
+#	new file:   src/assignment2/DetectColors.java
+#	new file:   src/assignment2/DriveForward2.java
+#	modified:   src/assignment2/GetMessage.java
+#	new file:   src/assignment2/Goals.java
+#	deleted:    src/assignment2/Main.java
+#	new file:   src/assignment2/Main2.java
+#	modified:   src/assignment2/Model.java
+#	new file:   src/assignment2/Stop.java
+#	modified:   src/package2/AvoidCollision.java
+#	modified:   src/package2/AvoidEdge.java
+#	new file:   src/package2/Main.java
+#
+
